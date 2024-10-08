@@ -48,7 +48,6 @@ Test the program with the following steps:
 
 ### Why We Use `PWD` Environment Variable Instead of `cwd` Link
 
-The `PWD` environment variable is used instead of the `/proc/[pid]/cwd` link because:
 - The `PWD` environment variable reflects the logical current working directory as set by the shell, which may include symbolic links.
 - The `/proc/[pid]/cwd` link provides the physical path, which resolves all symbolic links. This can lead to discrepancies if the shell's `PWD` includes symbolic links.
 
