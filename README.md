@@ -52,9 +52,13 @@ The `PWD` environment variable is used instead of the `/proc/[pid]/cwd` link bec
 - The `PWD` environment variable reflects the logical current working directory as set by the shell, which may include symbolic links.
 - The `/proc/[pid]/cwd` link provides the physical path, which resolves all symbolic links. This can lead to discrepancies if the shell's `PWD` includes symbolic links.
 
+### Why We Get `PWD` from Child Process Instead of Shell Process
+
+Using libraries like `ptrace` or tools like `gdb` to inspect the shell process directly requires elevated privileges (`sudo`). By monitoring the child process, we can avoid the need for such privileges while still obtaining the necessary information about the shell's logical current working directory.
+
 ### Why We Monitor `/proc` Using `netlink` Instead of `inotify`
 
-- The `/proc` filesystem (procfs) is a virtual filesystem that provides process and system information. `inotify` is designed to monitor real filesystems and cannot be used to monitor virtual filesystems like `\proc`.
+The `/proc` filesystem (procfs) is a virtual filesystem that provides process and system information. `inotify` is designed to monitor real filesystems and cannot be used to monitor virtual filesystems like `\proc`.
 
 ### Why We Detect `SHLVL`
 
